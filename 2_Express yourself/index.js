@@ -1,34 +1,35 @@
-// index.js
 import express from 'express';
-import path from 'path';
 import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 import { getAll, getItem } from './data.js';
 
 const app = express();
-const PORT = 3000;
+const port = 3000;
 
-// Set up EJS
+// Resolve __dirname for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 app.set('view engine', 'ejs');
-app.set('views', path.join(path.dirname(fileURLToPath(import.meta.url)), 'views'));
+app.set('views', `${__dirname}/views`);
+app.use(express.static(`${__dirname}/public`));
 
-// Serve static files (optional)
-app.use(express.static(path.join(path.dirname(fileURLToPath(import.meta.url)), 'public')));
-
-// Home route
+// Default route
 app.get('/', (req, res) => {
-    res.render('home', { plants: getAll() });
+  const items = getAll();
+  res.render('home', { items });
 });
 
 // Detail route
-app.get('/details/:id', (req, res) => {
-    const plant = getItem(req.params.id);
-    if (plant) {
-        res.render('detail', { plant });
-    } else {
-        res.status(404).send('Plant not found');
-    }
+app.get('/details', (req, res) => {
+  const item = getItem(req.query.id);
+  if (item) {
+    res.render('detail', { item });
+  } else {
+    res.status(404).send('Item not found');
+  }
 });
 
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
 });

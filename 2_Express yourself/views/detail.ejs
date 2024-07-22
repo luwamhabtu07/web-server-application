@@ -1,14 +1,39 @@
-<!-- views/detail.ejs -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title><%= plant.name %> Details</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail</title>
 </head>
 <body>
-    <h1><%= plant.name %> Details</h1>
-    <p>Type: <%= plant.type %></p>
-    <p>Origin: <%= plant.origin %></p>
-    <p>Care Level: <%= plant.careLevel %></p>
-    <a href="/">Back to Home</a>
+  <h1>Item Detail</h1>
+  <% if (item) { %>
+    <h2><%= item.name %></h2>
+    <p>Type: <%= item.type %></p>
+    <% if (item.model) { %>
+      <p>Model: <%= item.model %></p>
+    <% } %>
+    <% if (item.year) { %>
+      <p>Year: <%= item.year %></p>
+    <% } %>
+    <% if (item.species) { %>
+      <p>Species: <%= item.species %></p>
+    <% } %>
+    <% if (item.usage) { %>
+      <p>Usage: <%= item.usage %></p>
+    <% } %>
+    <% if (item.artist) { %>
+      <p>Artist: <%= item.artist %></p>
+    <% } %>
+    <% if (item.author) { %>
+      <p>Author: <%= item.author %></p>
+    <% } %>
+    <% if (item.genre) { %>
+      <p>Genre: <%= item.genre %></p>
+    <% } %>
+  <% } else { %>
+    <p>Item not found</p>
+  <% } %>
+  <a href="/">Back to Home</a>
 </body>
 </html>
