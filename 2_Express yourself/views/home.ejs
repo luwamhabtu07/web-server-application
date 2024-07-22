@@ -1,0 +1,15 @@
+<!-- views/home.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Plants</title>
+</head>
+<body>
+    <h1>Plants</h1>
+    <ul>
+        <% plants.forEach(plant => { %>
+            <li><a href="/details/<%= plant.id %>"><%= plant.name %> - <%= plant.type %></a></li>
+        <% }); %>
+    </ul>
+</body>
+</html>
