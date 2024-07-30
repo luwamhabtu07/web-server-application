@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.development.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.20.2/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // Pass unescaped JS data from server
+        let items = <%- items %>;
+
+        function ItemList() {
+            const handleClick = (id) => {
+                window.location.href = `/details/${id}`;
+            };
+
+            return (
+                <div>
+                    <h1>Items List</h1>
+                    <ul>
+                        {items.map(item => (
+                            <li key={item._id} onClick={() => handleClick(item._id)}>
+                                {item.name}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<ItemList />, document.getElementById('root'));
+    </script>
+</body>
+</html>
