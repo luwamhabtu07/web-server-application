@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
-// Define the schema for your items
-const itemSchema = new mongoose.Schema({
+// Define the schema for books
+const bookSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true
@@ -14,6 +14,7 @@ const itemSchema = new mongoose.Schema({
 });
 
 // Create a model using the schema
-const Item = mongoose.model('Item', itemSchema);
+const Book = mongoose.model('Book', bookSchema);
 
-export default Item;
+export default Book;
+

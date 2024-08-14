@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
-import itemsRouter from './routes/items.js'; // Import routes
+import booksRouter from './routes/books.js'; // Updated to books
 
 const app = express();
 
@@ -13,7 +13,7 @@ app.use(express.json()); // Parse JSON bodies
 mongoose.set('strictQuery', false); // Explicitly set strictQuery to false
 
 // Connect to MongoDB
-const mongoURI = 'mongodb+srv://dbuser:3425@cluster0.hzkhl9o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const mongoURI = 'mongodb+srv://dbuser:3425@cluster0.hzkhl9o.mongodb.net/sccproject?retryWrites=true&w=majority&appName=Cluster0'; // Updated URI
 mongoose.connect(mongoURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -24,10 +24,14 @@ mongoose.connect(mongoURI, {
 .catch(err => console.error('MongoDB connection error:', err));
 
 // Use routes
-app.use('/items', itemsRouter); // Mount the items routes
+app.use('/books', booksRouter); // Updated to books
 
 // Start the server
 const port = process.env.PORT || 3000;
+app.get('/', (req, res) => {
+  res.send('Welcome to the Book API');
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

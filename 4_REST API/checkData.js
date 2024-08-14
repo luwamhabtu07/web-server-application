@@ -1,25 +1,25 @@
 import mongoose from 'mongoose';
 
-const mongoURI = 'mongodb+srv://dbuser:3425@cluster0.hzkhl9o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const mongoURI = 'mongodb+srv://dbuser:3425@cluster0.hzkhl9o.mongodb.net/sccproject?retryWrites=true&w=majority&appName=Cluster0'; // Updated URI
 
 mongoose.connect(mongoURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
 
-const itemSchema = new mongoose.Schema({
+const bookSchema = new mongoose.Schema({
   name: String,
   description: String
 });
 
-const Item = mongoose.model('Item', itemSchema);
+const Book = mongoose.model('Book', bookSchema);
 
 const checkData = async () => {
   try {
-    const items = await Item.find();
-    console.log('Fetched items:', items);
+    const books = await Book.find();
+    console.log('Fetched books:', books);
   } catch (err) {
-    console.error('Error fetching items:', err);
+    console.error('Error fetching books:', err);
   } finally {
     mongoose.connection.close();
   }
