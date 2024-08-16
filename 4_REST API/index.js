@@ -1,13 +1,16 @@
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
-import booksRouter from './routes/books.js'; // Updated to books
+import { engine } from 'express-handlebars'; // Add Handlebars engine
+import booksRouter from './routes/books.js'; // Import updated routes
 
 const app = express();
 
 // Middleware
 app.use(cors()); // Enable CORS
 app.use(express.json()); // Parse JSON bodies
+app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+app.use(express.static('./public')); // Serve static files
 
 // Set Mongoose strictQuery option
 mongoose.set('strictQuery', false); // Explicitly set strictQuery to false
@@ -18,20 +21,33 @@ mongoose.connect(mongoURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
-.then(() => {
-  console.log('Connected to MongoDB');
-})
-.catch(err => console.error('MongoDB connection error:', err));
+.then(() => console.log('Mongoose connected.'))
+.catch(err => console.error('Error connecting to MongoDB:', err));
+
+// Set up Handlebars
+app.engine('hbs', engine({
+    defaultLayout: "main.hbs",
+    extname: '.hbs'
+}));
+app.set("view engine", "hbs");
 
 // Use routes
-app.use('/books', booksRouter); // Updated to books
+app.use('/books', booksRouter); // Use updated route
 
-// Start the server
-const port = process.env.PORT || 3000;
+// Default route
 app.get('/', (req, res) => {
   res.send('Welcome to the Book API');
 });
 
+// 404 handler
+app.use((req, res) => {
+  res.type('text/plain');
+  res.status(404);
+  res.send('404 - Not found');
+});
+
+// Start the server
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
