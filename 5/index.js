@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const port = 3000;
+const port = 3000; // Port configuration
 
 // Middleware to serve static files
 app.use(express.static(path.join(__dirname, 'public')));
@@ -22,7 +22,7 @@ const items = [
   { id: 2, name: 'Kill a Mockingbird', details: 'Details of Item 2' },
   { id: 3, name: 'The Great Gatsby', details: 'Details of Item 3' },
   { id: 4, name: 'Sense and Sensibility', details: 'Details of Item 4' },
-  { id: 5, name: 'he Great Adventure', details: 'Details of Item 5' },
+  { id: 5, name: 'The Great Adventure', details: 'Details of Item 5' },
 ];
 
 // Route for the home page
@@ -36,6 +36,7 @@ app.get('/details/:id', (req, res) => {
   res.render('details', { item });
 });
 
-app.listen(app.get('port'), () => {
-  console.log(`Express started on http://localhost:${app.get('port')}`);
+// Start the server
+app.listen(port, () => {
+  console.log(`Express started on http://localhost:${port}`);
 });
