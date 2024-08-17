@@ -1,0 +1,12 @@
+{
+  "name": "web-server-application",
+  "version": "1.0.0",
+  "description": "SENDING DATA",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "LUWAM",
+  "license": "ISC",
+  "dependencies": {}
+}

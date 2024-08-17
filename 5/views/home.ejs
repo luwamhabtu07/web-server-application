@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+      // Pass items data array from EJS to React component
+      const items = <%- items %>;
+
+      function ItemList() {
+        const [selectedItem, setSelectedItem] = React.useState(null);
+
+        const handleItemClick = (item) => {
+          setSelectedItem(item);
+          window.location.href = `/details/${item.id}`; // Navigate to details page
+        };
+
+        return (
+          <div>
+            <h1>Books List</h1>
+            <ul>
+              {items.map(item => (
+                <li key={item.id} onClick={() => handleItemClick(item)}>
+                  {item.name}
+                </li>
+              ))}
+            </ul>
+          </div>
+        );
+      }
+
+      ReactDOM.render(<ItemList />, document.getElementById('root'));
+    </script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</body>
+</html>
