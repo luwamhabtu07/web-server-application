@@ -1,5 +1,5 @@
 import express from 'express';
-import Book from './models/book.js'; // Updated path to book model
+import Book from '../models/book.js'; // Updated path to book model
 
 const router = express.Router();
 
